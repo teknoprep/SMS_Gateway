@@ -291,7 +291,7 @@ window.addEventListener("resize", e => {
 
 if ($('body').find('#sms_number').length > 0) {
 
-	var conn = new ab.Session(webSocketConf +'://'+domainName+':8080',
+	var conn = new ab.Session(webSocketProtocol +'://'+domainName+':8080',
 		function() {
 			console.log("Connected");
 
