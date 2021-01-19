@@ -26,7 +26,7 @@ class Server extends BaseController
 		$pull->on('message', array($pusher, 'onNewMessage'));
 
 
-		$webSock = new \React\Socket\Server('0.0.0.0:8080', $loop);
+		$webSock = new \React\Socket\Server('0.0.0.0', $loop);
 		$webServer = new \Ratchet\Server\IoServer(
 			new \Ratchet\Http\HttpServer(
 				new \Ratchet\WebSocket\WsServer(
