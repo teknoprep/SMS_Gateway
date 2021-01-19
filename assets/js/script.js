@@ -86,7 +86,7 @@ let viewChatList = () => {
 	chatList
 	.sort((a, b) => mDate(b.msg.time).subtract(a.msg.time))
 	.forEach((elem, index) => {
-		console.log(elem);
+		
 		let statusClass = elem.msg.status < 2 ? "far" : "fas";
 		let unreadClass = elem.unread ? "unread" : "";
 
@@ -260,7 +260,7 @@ $.ajax({
 	success: function (data) {
 		
 		if(data == "1"){
-		console.log("Message Save");
+		console.log("Send");
 		
 	}else if(data == "00"){
 		alert("Something went wrong while sending sms");
@@ -274,7 +274,7 @@ $.ajax({
 };
 
 let showProfileSettings = () => {
-	console.log(user);
+	
 	DOM.profileSettings.style.left = 0;
 	DOM.profilePic.src = user.pic;
 	DOM.inputName.value = user.name;
@@ -423,7 +423,7 @@ if ($('body').find('#sms_number').length > 0) {
 			  number: number
 			},
 			success: function (data) {
-				console.log(data);
+				
 				$('#txtName').val(data.data.alias);
 				$('#assignNameModal').modal('show');
 			}
@@ -449,7 +449,7 @@ if ($('body').find('#sms_number').length > 0) {
 			success: function (data) {
 				
 				$('.'+number+'').text(personName);
-				console.log(data.code);
+				
 			}
 		});
 

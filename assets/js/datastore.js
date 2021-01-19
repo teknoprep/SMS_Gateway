@@ -31,7 +31,7 @@ $.ajax({
     sms_number: sms_number
   },
   success: function (data) {
-    console.log(data);
+    
       contactList = data;
   },
 });
@@ -46,7 +46,7 @@ $.ajax({
   },
   
   success: function (data) {
-   console.log(data);
+   
     messages = data;
   },
 });
@@ -143,14 +143,13 @@ user = data;
 $.ajax({
   type: "GET",
   async: false,
-  /* contentType: "application/json", */
   dataType: 'json',
   url: link + "/user/dashboard/getAllContacts",
   data: {
     sms_number: sms_number
   },
   success: function (data) {
-    console.log(data);
+    
       contactList = data;
   },
 });
@@ -163,9 +162,8 @@ $.ajax({
   data: {
     sms_number: sms_number
   },
-  //url: '../functions.php/getAllMessages',
   success: function (data) {
-   console.log(data);
+   
     messages = data;
   },
 });
@@ -238,7 +236,7 @@ let init = () => {
     DOM.profilePicInput.addEventListener("change", () => console.log(DOM.profilePicInput.files[0]));
     generateChatList();
   
-    console.log("Click the Image at top-left to open settings.");
+    
   };
 
 setTimeout(() => {
