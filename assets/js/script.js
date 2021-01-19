@@ -457,3 +457,9 @@ if ($('body').find('#sms_number').length > 0) {
 
 }
 
+$('#input').keyup(function(e){
+	if(e.keyCode == 13)
+	{
+	  sendMessage();
+	}
+	});
