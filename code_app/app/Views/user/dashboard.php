@@ -6,6 +6,10 @@
     .text-muted {
         color: #000 !important;
     }
+
+    .rounded-circle {
+        border-radius: 0 !important;
+    }
 </style>
 
 <div class="container-fluid" id="main-container">
@@ -14,7 +18,7 @@
 
             <!-- Navbar -->
             <div class="row d-flex flex-row align-items-center p-2" id="navbar">
-                <img alt="Profile Photo" class="img-fluid rounded-circle mr-2" style="height:50px; cursor:pointer;" onclick="showProfileSettings()" id="display-pic">
+                <img alt="Profile Photo" class="img-fluid rounded-circle mr-2" style="height:50px; background-color:#fff; cursor:pointer; background-color:#fff;" onclick="showProfileSettings()" id="display-pic">
                 <div class="text-white font-weight-bold" id="username"><?= $_SESSION['user']['fullname'] ?></div>
 
                 <div class="nav-item dropdown ml-auto">

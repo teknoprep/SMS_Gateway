@@ -112,8 +112,8 @@ MessageUtils = {
 
 let init = () => {
   //	DOM.username.innerHTML = user.name;
-    DOM.displayPic.src = user.pic;
-    DOM.profilePic.stc = user.pic;
+    DOM.displayPic.src = '/assets/images/newlogo.png';
+    DOM.profilePic.stc = '/assets/images/newlogo.png';
     DOM.profilePic.addEventListener("click", () => DOM.profilePicInput.click());
     DOM.profilePicInput.addEventListener("change", () => console.log(DOM.profilePicInput.files[0]));
     generateChatList();
@@ -230,8 +230,8 @@ MessageUtils = {
 
 let init = () => {
   //	DOM.username.innerHTML = user.name;
-    DOM.displayPic.src = user.pic;
-    DOM.profilePic.stc = user.pic;
+    DOM.displayPic.src = '/assets/images/newlogo.png';
+    DOM.profilePic.stc = '/assets/images/newlogo.png';
     DOM.profilePic.addEventListener("click", () => DOM.profilePicInput.click());
     DOM.profilePicInput.addEventListener("change", () => console.log(DOM.profilePicInput.files[0]));
     generateChatList();

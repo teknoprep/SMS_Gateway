@@ -58,7 +58,7 @@ class Dashboard extends BaseController
 				'name'     => $contact->number,
 				'number'   => $contact->number,
 				'tempName' => ($contact->alias) ? $contact->alias : "Unknown",
-				'pic'      => '../assets/images/dsaad212312aGEA12ew.png',
+				'pic'      => '../assets/images/placeholder.png',
 				'lastSeen' => date('m-d-Y h:i:s a', time())
 			];
 			array_push($list, $user);
@@ -75,7 +75,7 @@ class Dashboard extends BaseController
 			'id'       => (int) $userQuery->number_id,
 			'name'     => $userQuery->number,
 			'number'   => $userQuery->number,
-			'pic'      => '../assets/images/dsaad212312aGEA12ew.png',
+			'pic'      => '../assets/images/placeholder.png',
 			'lastSeen' => date('m-d-Y h:i:s a', time())
 		];
 		array_push($list, $user2);
@@ -107,7 +107,7 @@ class Dashboard extends BaseController
 			'id'     => (int) $query->number_id,
 			'name'   => $_SESSION['user']['fullname'],
 			'number' => $query->number,
-			'pic'    => '../assets/images/dsaad212312aGEA12ew.png',
+			'pic'    => '../assets/images/placeholder.png',
 		];
 		header('Content-Type: application/json');
 		echo json_encode($user);
