@@ -99,7 +99,7 @@ let viewChatList = () => {
 				<div class="small last-message">${elem.isGroup ? contactList.find(contact => contact.id === elem.msg.sender).number + ": " : ""}${elem.msg.sender === user.id ? "<i class=\"" + statusClass + " fa-check-circle mr-1\"></i>" : ""} ${elem.msg.body}</div>
 			</div>
 			<div class="flex-grow-1 text-right">
-				<div class="small time">${mDate(elem.msg.time).chatListFormat()}</div>
+				<div class="small time">${mDate(elem.msg.time).chatListFormat()} <span onclick="deleteChat(${elem.contact.id})"><i class="fas fa-trash"></i></span></div>
 				${elem.unread ? "<div class=\"badge badge-success badge-pill small\" id=\"unread-count\">" + elem.unread + "</div>" : ""}
 			</div>
 		</div>
@@ -462,4 +462,30 @@ $('#input').keyup(function(e){
 	{
 	  sendMessage();
 	}
-	});
+});
+
+let deleteChat = (key) => {
+	confirmation = confirm("Are you sure you want to delete this chat");
+		if(confirmation){
+			secret = $('#sms_number').val();
+			
+			$.ajax({
+				type: "POST",
+				async: false,
+				dataType: 'JSON',
+				url: link + "/user/dashboard/deleteConversation",
+				data: {
+				  key: key, secret: secret
+				},
+				success: function (data) {
+					if(data.code == 200){
+						alert("Conversation Deleted");
+						$('div[data-main-chat="'+key+'"]').eq(0).remove();
+					}else{
+						alert("Something went wrong");
+					}
+				}
+			});
+		}
+}
+

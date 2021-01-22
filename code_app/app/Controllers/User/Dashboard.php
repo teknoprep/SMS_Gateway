@@ -124,7 +124,9 @@ class Dashboard extends BaseController
 			die();
 		}
 
-		$query  = $this->db->query("select * from tbl_sms_logs where sender_id = $sms_number or receiver_id = $sms_number");
+		$query  = $this->db->query("select * from tbl_sms_logs where (sender_id = $sms_number or receiver_id = $sms_number) and is_active = 1 and deleted_at IS NULL");
+
+
 		$allMessages = $query->getResult();
 
 		$thread = [];
@@ -327,6 +329,22 @@ class Dashboard extends BaseController
 		$senderModel = new SenderModel();
 
 		$data = $senderModel->where('number', $number)->set(['alias' => $name])->update();
+
+		$jsonData = [
+			'code' => 200,
+			'message' => 'success'
+		];
+		echo json_encode($jsonData);
+	}
+
+	public function deleteConversation()
+	{
+		$messageModel = new MessageModel();
+		$key = $this->request->getVar('key');
+		$secret = $this->request->getVar('secret');
+
+		$messageModel->where(['sender_id' => $secret, 'receiver_id' => $key])->delete();
+		$messageModel->where(['sender_id' => $key, 'receiver_id' => $secret])->delete();
 
 		$jsonData = [
 			'code' => 200,
