@@ -12,7 +12,7 @@ class NumberModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['number', 'is_active', 'label_id', 'carrier_id'];
+    protected $allowedFields = ['number', 'is_active', 'label_id', 'carrier_id', 'number_label'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';

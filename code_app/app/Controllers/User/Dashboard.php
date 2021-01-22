@@ -24,7 +24,7 @@ class Dashboard extends BaseController
 		$db = \Config\Database::connect();
 		$userId = $_SESSION['user']['user_id'];
 
-		$query = $db->query("select tbl_numbers.number, tbl_user_numbers.number_id
+		$query = $db->query("select tbl_numbers.number, tbl_numbers.number_label ,tbl_user_numbers.number_id
 		from tbl_numbers
 		inner join tbl_user_numbers
 		on tbl_numbers.number_id = tbl_user_numbers.number_id
@@ -59,7 +59,7 @@ class Dashboard extends BaseController
 				'number'   => $contact->number,
 				'tempName' => ($contact->alias) ? $contact->alias : "Unknown",
 				'pic'      => '../assets/images/dsaad212312aGEA12ew.png',
-				'lastSeen' => date('Y-m-d h:i:s a', time())
+				'lastSeen' => date('m-d-Y h:i:s a', time())
 			];
 			array_push($list, $user);
 		}
@@ -76,7 +76,7 @@ class Dashboard extends BaseController
 			'name'     => $userQuery->number,
 			'number'   => $userQuery->number,
 			'pic'      => '../assets/images/dsaad212312aGEA12ew.png',
-			'lastSeen' => date('Y-m-d h:i:s a', time())
+			'lastSeen' => date('m-d-Y h:i:s a', time())
 		];
 		array_push($list, $user2);
 
@@ -138,7 +138,7 @@ class Dashboard extends BaseController
 				'body' 		  => $message->message,
 				'status' 	  => $message->status,
 				'recvIsGroup' => false,
-				'time' 		  => $message->created_at,
+				'time' 		  => date('m-d-Y', strtotime($message->created_at)),
 			];
 			array_push($thread, $chat);
 		}
@@ -189,7 +189,7 @@ class Dashboard extends BaseController
 
 				$newMessageId = $messageModel->insertID();
 				$messageDataDb = $messageModel->where('sl_id', $newMessageId)->first();
-				$messageDate = $messageDataDb['created_at'];
+				$messageDate = date('m-d-Y', strtotime($messageDataDb['created_at']));
 
 				$newMessageData = '';
 
@@ -244,7 +244,7 @@ class Dashboard extends BaseController
 		$message = $_REQUEST['message'];
 		$senderId = $_REQUEST['senderId'];
 
-		$date = date('Y-m-d H:i:s');
+		$date = date('m-d-Y H:i:s');
 
 		$receiverId = '';
 		$newReceiver = '';

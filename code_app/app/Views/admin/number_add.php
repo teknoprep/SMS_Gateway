@@ -55,6 +55,11 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <number>Number Label</number>
+                                        <input type="text" class="form-control" name="number_label" />
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="">Carrier</label>
                                         <select name="carrier_id" id="carrier_id" class="form-control">
 

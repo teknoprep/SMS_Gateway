@@ -31,7 +31,7 @@
 
                     <?php foreach ($user_numbers as $row) : ?>
 
-                        <option value="<?= $row->number_id ?>"><?= $row->number ?></option>
+                        <option value="<?= $row->number_id ?>"><?= ($row->number_label) ? $row->number_label . " - " . $row->number : $row->number ?></option>
                     <?php endforeach; ?>
                 </select>
 

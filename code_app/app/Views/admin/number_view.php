@@ -58,6 +58,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Number</th>
+                                                    <th>Number Label</th>
                                                     <th>Carrier</th>
                                                     <th>Status</th>
                                                     <th>Label</th>
@@ -72,6 +73,7 @@
                                                 foreach ($numbers as $row) : ?>
                                                     <tr>
                                                         <td><?= $row['number'] ?></td>
+                                                        <td><?= $row['number_label'] ?></td>
                                                         <td><?php
                                                             $carrierModel = new CarrierModel();
                                                             $carrier = $carrierModel->where('carrier_id', $row['carrier_id'])->first();

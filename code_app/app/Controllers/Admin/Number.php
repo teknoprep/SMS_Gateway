@@ -49,6 +49,7 @@ class Number extends BaseController
 				return view('admin/number_add');
 			}
 			$number = $this->request->getVar('number');
+			$number_label = $this->request->getVar('number_label');
 			$carrier_id = $this->request->getVar('carrier_id');
 			$ddlabel = $this->request->getVar('ddlabel');
 
@@ -67,6 +68,7 @@ class Number extends BaseController
 			}
 			$data = [
 				'number' => $number,
+				'number_label' => $number_label,
 				'carrier_id' => $carrier_id,
 				'label_id' => $labelData,
 				'is_active' => 1
@@ -94,6 +96,7 @@ class Number extends BaseController
 
 
 			$number = $this->request->getVar('number');
+			$number_label = $this->request->getVar('number_label');
 			$carrier_id = $this->request->getVar('carrier_id');
 			$ddlabel = $this->request->getVar('ddlabel');
 			$number_id = $this->request->getVar('number_id');
@@ -109,6 +112,7 @@ class Number extends BaseController
 				'number_id' => $number_id,
 				'carrier_id' => $carrier_id,
 				'number' => $number,
+				'number_label' => $number_label,
 				'label_id' => $labelData,
 			];
 
