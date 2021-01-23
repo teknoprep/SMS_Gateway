@@ -63,7 +63,7 @@ class Twilio extends BaseController
             $messageId = $messageModal->insertID;
 
             $messageData = $messageModal->where('sl_id', $messageId)->first();
-            $messageDate = date('m-d-Y', strtotime($messageData['created_at']));
+            $messageDate = date('m-d-Y H:i:s', strtotime($messageData['created_at']));
 
             $newMessageData = '';
 
