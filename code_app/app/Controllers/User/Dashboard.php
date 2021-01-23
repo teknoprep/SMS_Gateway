@@ -138,7 +138,7 @@ class Dashboard extends BaseController
 				'body' 		  => $message->message,
 				'status' 	  => $message->status,
 				'recvIsGroup' => false,
-				'time' 		  => date('m-d-Y', strtotime($message->created_at)),
+				'time' 		  => date('m-d-Y H:i:s', strtotime($message->created_at)),
 			];
 			array_push($thread, $chat);
 		}
@@ -189,7 +189,7 @@ class Dashboard extends BaseController
 
 				$newMessageId = $messageModel->insertID();
 				$messageDataDb = $messageModel->where('sl_id', $newMessageId)->first();
-				$messageDate = date('m-d-Y', strtotime($messageDataDb['created_at']));
+				$messageDate = date('m-d-Y H:i:s', strtotime($messageDataDb['created_at']));
 
 				$newMessageData = '';
 
