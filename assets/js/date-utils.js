@@ -1,11 +1,18 @@
 
 const mDate = (dateString) => {
 	
-	let date = dateString ? new Date(dateString) : new Date();
-
+	let newDate = moment.utc(dateString).local().format();
+	let date = newDate ? new Date(newDate) : new Date();
 	let dualize = (x) => x < 10 ? "0" + x : x;
 	let getTime = () => dualize(date.getHours()) + ":" + dualize(date.getMinutes());
-	let getDate = () => dualize(date.getDate()) + "/" + dualize(date.getMonth()) + "/" + dualize(date.getFullYear());
+	let month;
+	if(date.getMonth() == 0){
+		month = "01";
+	}else{
+		month = date.getMonth() + 1;
+	}
+
+	let getDate = () => month + "/" + date.getDate() + "/" + date.getFullYear();
 
 	return {
 		subtract: (otherDateString) => {

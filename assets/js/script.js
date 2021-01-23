@@ -212,7 +212,7 @@ let generateMessageArea = (elem, chatIndex) => {
 		
 		DOM.messageAreaDetails.innerHTML = `${memberNames}`;
 	} else {
-		DOM.messageAreaDetails.innerHTML = `last seen ${mDate(chat.contact.lastSeen).lastSeenFormat()}`;
+	//	DOM.messageAreaDetails.innerHTML = `last seen ${mDate(chat.contact.lastSeen).lastSeenFormat()}`;
 	}
 
 	let msgs = chat.isGroup ? MessageUtils.getByGroupId(chat.group.id) : MessageUtils.getByContactId(chat.contact.id);
