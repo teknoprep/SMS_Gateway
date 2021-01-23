@@ -28,7 +28,7 @@ class Dashboard extends BaseController
 		from tbl_numbers
 		inner join tbl_user_numbers
 		on tbl_numbers.number_id = tbl_user_numbers.number_id
-		where tbl_user_numbers.user_id = $userId and tbl_numbers.deleted_at IS NULL");
+		where tbl_user_numbers.user_id = $userId and tbl_numbers.deleted_at IS NULL and tbl_user_numbers.deleted_at IS NULL");
 		$userNumberLists = $query->getResult();
 
 		$this->data['user_numbers'] = $userNumberLists;
