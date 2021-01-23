@@ -102,7 +102,7 @@ class App extends BaseConfig
 	|
 	*/
 	//public $appTimezone = 'America/Chicago';
-	public $appTimezone = 'Asia/Karachi';
+	public $appTimezone = 'UTC';
 
 	/*
 	|--------------------------------------------------------------------------

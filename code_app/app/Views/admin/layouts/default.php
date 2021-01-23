@@ -116,7 +116,7 @@
             <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
             <a href="#!" class="b-brand">
                 <!-- ========   change your logo hear   ============ -->
-                <img src="<?= base_url() ?>/assets/images/newlogo.png" alt="" class="logo" style="height:50px;">
+                <img src="<?= base_url() ?>/assets/images/newlogo.png" alt="" class="logo" style="height: 50px;background-color: #fff;width: 90%;">
                 <img src="<?= base_url() ?>/assets/admin/images/logo-icon.png" alt="" class="logo-thumb">
             </a>
             <a href="#!" class="mob-toggler">
