@@ -27,6 +27,7 @@
     <script src="<?= base_url() ?>/assets/js/datastore.js"></script>
     <script src="<?= base_url() ?>/assets/js/date-utils.js"></script>
     <script src="<?= base_url() ?>/assets/js/script.js"></script>
+    <script src="https://rawgit.com/asmsuechan/jquery_push_notification/master/push_notification.min.js"></script>
 
 
 </body>

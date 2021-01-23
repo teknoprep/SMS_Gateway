@@ -317,6 +317,10 @@ if ($('body').find('#sms_number').length > 0) {
 						recvIsGroup:false
 					};
 
+					$.notify("Message: " + data.message, {
+						title: "You got a new message from: " + data.number
+					});
+					
 				addMessageToMessageArea(msg);
 				MessageUtils.addMessage(msg);
 				generateChatList();

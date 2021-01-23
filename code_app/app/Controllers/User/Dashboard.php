@@ -124,7 +124,7 @@ class Dashboard extends BaseController
 			die();
 		}
 
-		$query  = $this->db->query("select * from tbl_sms_logs where (sender_id = $sms_number or receiver_id = $sms_number) and is_active = 1 and deleted_at IS NULL");
+		$query  = $this->db->query("select * from tbl_sms_logs where (sender_id = $sms_number or receiver_id = $sms_number) and is_active = 1 and deleted_at IS NULL order by sl_id ASC");
 
 
 		$allMessages = $query->getResult();
