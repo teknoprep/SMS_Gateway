@@ -230,7 +230,7 @@ MessageUtils = {
 
 let init = () => {
   //	DOM.username.innerHTML = user.name;
-    DOM.displayPic.src = '/assets/images/newlogo.png';
+   // DOM.displayPic.src = '/assets/images/newlogo.png';
     DOM.profilePic.stc = '/assets/images/newlogo.png';
     DOM.profilePic.addEventListener("click", () => DOM.profilePicInput.click());
     DOM.profilePicInput.addEventListener("change", () => console.log(DOM.profilePicInput.files[0]));
