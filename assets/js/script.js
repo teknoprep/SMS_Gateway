@@ -453,6 +453,7 @@ if ($('body').find('#sms_number').length > 0) {
 			success: function (data) {
 				
 				$('.'+number+'').text(personName);
+				$('#assignNameModal').modal('hide');
 				
 			}
 		});
