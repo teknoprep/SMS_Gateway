@@ -23,7 +23,7 @@
 # Constants.php File Configuration
 - File location: code_app/app/Config/Constants.php
 - Update your vendor folder location in CONS_VENDOR variable
-- Add your domain or ip in CONS_WEBSOCKET_DOMAIN_NAME_OR_IP variable
+- Add your domain or ip in CONS_WEBSOCKET_DOMAIN_NAME_OR_IP variable without http or https
 - Define email SMTP configuration into email configuration section.
 - Once you're ready to use Plivo or Twilio you can add token and secret key into SMS API configuration.
 
