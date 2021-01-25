@@ -92,7 +92,7 @@ let viewChatList = () => {
 
 		DOM.chatList.innerHTML += `
 		<div data-main-chat="${elem.contact.id}" class="chat-list-item d-flex flex-row w-100 p-2 border-bottom ${unreadClass}" onclick="generateMessageArea(this, ${index})">
-			<img src="${elem.isGroup ? elem.group.pic : elem.contact.pic}" alt="Profile Photo" class="img-fluid rounded-circle mr-2" style="height:50px;">
+			
 			<div class="w-50">
 				<div class="name">${elem.name} | <span class="tempname ${elem.name}"> ${elem.contact.tempName}</span> </div>
 				
