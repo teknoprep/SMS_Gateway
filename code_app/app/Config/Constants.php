@@ -86,7 +86,7 @@ define("CONS_PLIVO_AUTH_ID", "");
 define("CONS_PLIVO_AUTH_TOKEN", "");
 
 /** Server Configuration */
-define("CONS_WEBSOCKET_DOMAIN_NAME_OR_IP", "");
+define("CONS_WEBSOCKET_DOMAIN_NAME_OR_IP", ""); // without http or https
 
 /** Email Configuration */
 define("CONS_EMAIL_SMTP", "");
