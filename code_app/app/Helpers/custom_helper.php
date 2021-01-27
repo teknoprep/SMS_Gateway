@@ -152,12 +152,13 @@ function send_email($to, $subject, $message)
     $mail = new PHPMailer(true);
     try {
         //Server settings
+        $mail->SMTPAutoTLS = false;
         $mail->isSMTP();
         $mail->Host       = CONS_EMAIL_SMTP;
         $mail->SMTPAuth   = true;
         $mail->Username   = CONS_EMAIL_SMTP_USER;
         $mail->Password   = CONS_EMAIL_SMTP_PASSWORD;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = CONS_EMAIL_SMTP_PORT;
         $mail->SMTPDebug = 2;
 
@@ -165,12 +166,10 @@ function send_email($to, $subject, $message)
         $mail->setFrom(CONS_EMAIL_SMTP_USER, CONS_EMAIL_SMTP_FROM_NAME);
         $mail->addAddress($to);
 
-
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body    = $message;
-        echo "<pre>";
-        print_r($mail);
+
         if ($mail->send()) {
             return true;
         } else {
