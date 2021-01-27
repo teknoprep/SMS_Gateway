@@ -9,6 +9,7 @@ use App\Controllers\BaseController;
 use App\Models\CarrierModel;
 use App\Models\MessageResponseModel;
 use App\Models\SenderModel;
+use App\Models\UserModel;
 
 include_once CONS_VENDOR;
 
