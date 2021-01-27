@@ -250,6 +250,12 @@
                 includeSelectAllOption: true
             });
 
+            $('.dropdown-menu').removeClass('multiselect-container');
+            $('.dropdown-menu').css({
+                "overflow": "auto",
+                "max-height": "200px"
+            });
+
             $('#ddLabel').addClass('form-control');
         });
     </script>
