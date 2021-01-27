@@ -458,7 +458,23 @@ if ($('body').find('#sms_number').length > 0) {
 			}
 		});
 
-    });
+	});
+	
+	$('#editProfileModalClick').on('click', function(){
+		
+		$.ajax({
+			type: "GET",
+			async: false,
+			dataType: 'JSON',
+			url: link + "/user/dashboard/edit_profile",
+			
+			success: function (data) {
+				$('#fullname').val(data.fullname);
+				$('#editProfileModal').modal('show');
+			}
+		});
+
+});
 
 }
 

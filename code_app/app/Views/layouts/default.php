@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>/assets/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="<?= base_url() ?>/assets/admin/images/favicon.ico" type="image/x-icon">
-
+    <link rel="stylesheet" href="<?= base_url(); ?>/assets/admin/css/toastr.min.css">
 
 
 </head>
@@ -28,7 +28,18 @@
     <script src="<?= base_url() ?>/assets/js/date-utils.js"></script>
     <script src="<?= base_url() ?>/assets/js/script.js"></script>
     <script src="https://rawgit.com/asmsuechan/jquery_push_notification/master/push_notification.min.js"></script>
+    <script src="<?= base_url() ?>/assets/admin/js/toastr.js"></script>
 
+
+    <?php if (isset($_SESSION['msg_error'])) { ?>
+        <?php echo "<script>toastr.error('" . display_error() . "')</script>"; ?>
+    <?php } ?>
+
+    <?php if (isset($_SESSION['msg_success'])) { ?>
+
+        <?php echo "<script>toastr.success('" . display_success_message() . "')</script>"; ?>
+
+    <?php } ?>
 
 </body>
 

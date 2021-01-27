@@ -352,4 +352,46 @@ class Dashboard extends BaseController
 		];
 		echo json_encode($jsonData);
 	}
+
+	public function edit_profile()
+	{
+
+		$userModel = new UserModel();
+		$user_id = $_SESSION['user']['user_id'];
+
+		$userModel->select("fullname");
+		$user = $userModel->where('user_id', $user_id)->first();
+
+		if ($this->request->getMethod() === 'post') {
+
+			$user_id = $_SESSION['user']['user_id'];
+			$fullname = $this->request->getVar('fullname');
+			$password = $this->request->getVar('password');
+
+			$updateData = [
+				"fullname" => $fullname,
+			];
+
+
+			if ($password != "" or $password != NULL) {
+
+				$encryptPassword = password_hash($password, PASSWORD_DEFAULT);
+				$updateData = [
+					"fullname" => $fullname,
+					"password" => $encryptPassword
+				];
+			}
+
+			if ($userModel->where("user_id", $user_id)->set($updateData)->update()) {
+				$_SESSION['user']['fullname'] = $fullname;
+				$_SESSION['msg_success'] = "Account information update successfully";
+				return redirect()->to(base_url() . '/user/dashboard');
+			} else {
+				$_SESSION['msg_success'] = "Something went wrong while updating account information";
+				return redirect()->to(base_url() . '/user/dashboard');
+			}
+		}
+
+		echo json_encode($user);
+	}
 }

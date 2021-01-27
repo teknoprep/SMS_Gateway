@@ -24,6 +24,7 @@
                 <div class="nav-item dropdown ml-auto">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v text-white"></i></a>
                     <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="javascript:void(1)" id="editProfileModalClick">Edit Profile</a>
                         <a class="dropdown-item" href="javascript:void(1)" data-toggle="modal" data-target="#sendNewMessageModal">New Messsage</a>
                         <a class="dropdown-item" href="<?php base_url() ?>/user/login/logout">Log Out</a>
                     </div>
@@ -149,6 +150,43 @@
 
 
 
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="editProfileModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form action="<?= base_url() ?>/user/dashboard/edit_profile" method="post">
+                    <div class="form-group">
+                        <label>Fullname</label>
+                        <input type="text" name="fullname" id="fullname" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" id="password" class="form-control">
+                    </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <!-- <input type="button" class="btn btn-primary" type="submit" value="Update Profile" id="btnUpdateProfile" />
+ -->
+                <button type="submit" class="btn btn-primary" value="Update Profile" id="btnUpdateProfile">Update Profile</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+            </form>
+        </div>
     </div>
 </div>
 
