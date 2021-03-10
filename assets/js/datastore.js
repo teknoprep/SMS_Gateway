@@ -5,11 +5,14 @@ let contactList;
 
 $(document).ready(function(){
 
+  $('#cover-spin').show();
   sms_number = $('#sms_number').val();
   
 
 $('#sms_number').on('change', function() {
 
+  $('#cover-spin').show();
+  $('#chat-list').html("");
   sms_number = this.value;
 
 $.ajax({
@@ -111,14 +114,13 @@ MessageUtils = {
 };
 
 let init = () => {
-  //	DOM.username.innerHTML = user.name;
-  //  DOM.displayPic.src = '/assets/images/newlogo.png';
+
     DOM.profilePic.stc = '/assets/images/newlogo.png';
     DOM.profilePic.addEventListener("click", () => DOM.profilePicInput.click());
     DOM.profilePicInput.addEventListener("change", () => console.log(DOM.profilePicInput.files[0]));
     generateChatList();
   
-    console.log("Click the Image at top-left to open settings.");
+    $('#cover-spin').hide();
   };
 
 setTimeout(() => {
@@ -229,13 +231,12 @@ MessageUtils = {
 
 
 let init = () => {
-  //	DOM.username.innerHTML = user.name;
-   // DOM.displayPic.src = '/assets/images/newlogo.png';
+
     DOM.profilePic.stc = '/assets/images/newlogo.png';
     DOM.profilePic.addEventListener("click", () => DOM.profilePicInput.click());
     DOM.profilePicInput.addEventListener("change", () => console.log(DOM.profilePicInput.files[0]));
     generateChatList();
-  
+    $('#cover-spin').hide();
     
   };
 
@@ -243,8 +244,5 @@ setTimeout(() => {
   init();
 
 }, 3000);
-
-
-
 
 }); //ready function
