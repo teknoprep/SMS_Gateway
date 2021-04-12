@@ -76,8 +76,8 @@
                         <a class="dropdown-item" href="javascript:void(1)" id="editProfileModalClick">Edit Profile</a>
                         <a class="dropdown-item" href="javascript:void(1)" id="btnLoginOffice365" onclick="window.open('<?= base_url() ?>/user/dashboard/loginAndGetContact', '_blank' , 'location=yes,height=500,width=520,scrollbars=no,status=no' );">Login with Office 365</a>
 
-                        <a class="dropdown-item" href="javascript:void(1)" data-toggle="modal" data-target="#sendNewMessageModal">New Messsage</a>
-                        <a class="dropdown-item" href="javascript:void(1)" id="sendNewMessageContactModalClick">New Messsage - Contact List</a>              
+                        <!-- <a class="dropdown-item" href="javascript:void(1)" data-toggle="modal" data-target="#sendNewMessageModal">New Messsage</a> -->
+                        <a class="dropdown-item" href="javascript:void(1)" id="sendNewMessageContactModalClick">New Messsage</a>              
                         <a class="dropdown-item" href="<?php base_url() ?>/user/login/logout">Log Out</a>
                     </div>
                 </div>
