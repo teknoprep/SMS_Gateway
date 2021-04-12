@@ -9,10 +9,13 @@ use App\Controllers\BaseController;
 use App\Models\CarrierModel;
 use App\Models\MessageResponseModel;
 use App\Models\SenderModel;
+use App\Models\UserImportContactModel;
+
 use App\Models\UserModel;
+use App\Models\UserNumberNameModel;
 
 include_once CONS_VENDOR;
-
+use \TheNetworg\OAuth2\Client\Provider\Azure;
 
 class Dashboard extends BaseController
 {
@@ -50,6 +53,7 @@ class Dashboard extends BaseController
 
 		$query = $this->db->query("select * from tbl_senders");
 		$senderNumberList = $query->getResult();
+
 
 		$list = [];
 		foreach ($senderNumberList as $contact) {
@@ -240,10 +244,14 @@ class Dashboard extends BaseController
 		$receiverModel = new SenderModel();
 		$numberModel = new NumberModel();
 		$messageModel = new MessageModel();
-
+		$userNameModel = new UserNumberNameModel();
+		
 		$number = $_REQUEST['number'];
 		$message = $_REQUEST['message'];
 		$senderId = $_REQUEST['senderId'];
+		$contactName = isset($_REQUEST['contactName']) ? $_REQUEST['contactName'] : "Unknown";
+		$userId = $_SESSION['user']['user_id'];
+
 
 		$date = date('m-d-Y H:i:s');
 
@@ -258,6 +266,17 @@ class Dashboard extends BaseController
 		} else {
 			$newReceiver = "0";
 			$receiverId = $checkReceiver['sender_id'];
+		}
+
+		$checkUserNameExists = $userNameModel->where(['user_id' => $userId, 'number_id' => $receiverId, 'deleted_at' => null])->first();
+
+		if (!$checkUserNameExists) {
+			$userNameData = [
+				"number_id" => $receiverId,
+				"user_id" => $_SESSION['user']['user_id'],
+				"alias" => $contactName,
+			];
+			$userNameModel->save($userNameData);
 		}
 
 		$senderNumber = $numberModel->where('number_id', $senderId)->first();
@@ -294,7 +313,8 @@ class Dashboard extends BaseController
 					'is_active' => 1,
 					'new' => $newReceiver,
 					'date' => $date,
-					'number' => $number
+					'number' => $number,
+					'name' => $contactName
 				];
 
 				echo json_encode($newMessageData);
@@ -309,43 +329,122 @@ class Dashboard extends BaseController
 	public function fetchName()
 	{
 		$number = $this->request->getVar('number');
-
+		$userId = $_SESSION['user']['user_id'];
 		$senderModel = new SenderModel();
-		$senderModel->select('alias');
-		$data = $senderModel->where('number', $number)->first();
+		$senderModel->select('sender_id');
+		$numberId = $senderModel->where('number', $number)->first()['sender_id'];
 
+		$userNameModel = new UserNumberNameModel();
+		$userNameModel->select('alias');
+		$checkUserNameExists = $userNameModel->where(['user_id' => $userId, 'number_id' => $numberId, 'deleted_at' => null])->first();
+
+		if ($checkUserNameExists) {
 		$jsonData = [
 			'code' => 200,
 			'message' => 'success',
-			'data' => $data
+			'data' => $checkUserNameExists
 		];
 		echo json_encode($jsonData);
+	} else {
+
+		$nameData = [
+			"user_id" => $userId,
+			"number_id" => $numberId,
+			"is_active" => 1,
+			"alias" => "Unknown"
+		];
+
+		if ($userNameModel->save($nameData)) {
+			$newId = $userNameModel->insertID();
+			$userNameModel->select('alias');
+			$userNameExists = $userNameModel->where('uni_id', $newId)->first();
+
+			$jsonData = [
+				'code' => 200,
+				'message' => 'success',
+				'data' => $userNameExists
+			];
+			echo json_encode($jsonData);
+		}
 	}
+}
 
-	public function assignName()
-	{
-		$name = $this->request->getVar('txtName');
-		$number = $this->request->getVar('number');
+public function getAll365Contacts()
+{
 
-		$senderModel = new SenderModel();
+	$userImportModel = new UserImportContactModel();
+	$userId = $_SESSION['user']['user_id'];
 
-		$data = $senderModel->where('number', $number)->set(['alias' => $name])->update();
+	$userImportModel->select('uic,name,mobile_number,business_number,home_number');
+	$getAllContacts = $userImportModel->where('user_id', $userId)->findAll();
 
+	$jsonData = [
+		'code' => 200,
+		'message' => 'success',
+		'data' => $getAllContacts
+	];
+	echo json_encode($jsonData);
+}
+
+
+public function get365ConctactDetails()
+{
+
+	$userImportModel = new UserImportContactModel();
+	$userId = $_SESSION['user']['user_id'];
+	$number = $this->request->getVar('number');
+
+	$userImportModel->select('uic,name,mobile_number,business_number,home_number');
+	$getContact = $userImportModel->where(['user_id' => $userId, 'uic' => $number])->first();
+
+	if ($getContact) {
 		$jsonData = [
 			'code' => 200,
-			'message' => 'success'
+			'message' => 'success',
+			'data' => $getContact
+		];
+		echo json_encode($jsonData);
+	} else {
+		$jsonData = [
+			'code' => 404,
+			'message' => 'Contact details not found',
 		];
 		echo json_encode($jsonData);
 	}
+}
+
+public function assignName()
+{
+	$name = $this->request->getVar('txtName');
+	$number = $this->request->getVar('number');
+	$userId = $_SESSION['user']['user_id'];
+
+	$senderModel = new SenderModel();
+	$userNameModel = new UserNumberNameModel();
+
+	$senderModel->select('sender_id');
+	$numberId = $senderModel->where('number', $number)->first()['sender_id'];
+
+	$data = $userNameModel->where(['number_id' => $numberId, 'user_id' => $userId])->set(['alias' => $name])->update();
+
+	$jsonData = [
+		'code' => 200,
+		'message' => 'success'
+	];
+	echo json_encode($jsonData);
+}
 
 	public function deleteConversation()
 	{
 		$messageModel = new MessageModel();
+		$userNameModel = new UserNumberNameModel();
+
 		$key = $this->request->getVar('key');
 		$secret = $this->request->getVar('secret');
 
 		$messageModel->where(['sender_id' => $secret, 'receiver_id' => $key])->delete();
 		$messageModel->where(['sender_id' => $key, 'receiver_id' => $secret])->delete();
+		$userNameModel->where(['number_id' => $key, 'user_id' => $_SESSION['user']['user_id']])->delete();
 
 		$jsonData = [
 			'code' => 200,
@@ -394,5 +493,125 @@ class Dashboard extends BaseController
 		}
 
 		echo json_encode($user);
+	}
+	
+	public function loginAndGetContact()
+	{
+
+		$userImportModel = new UserImportContactModel();
+		$userId = $_SESSION['user']['user_id'];
+
+		$importData = '';
+
+		$provider = new \TheNetworg\OAuth2\Client\Provider\Azure([
+			'clientId'          => o365_CLIENT_ID,
+			'clientSecret'      => o365_SECRET,
+			'redirectUri'       =>  base_url() . '/user/dashboard/loginAndGetContact',
+			//Optional
+			'scopes'            => ['openid'],
+			//Optional
+			'defaultEndPointVersion' => '2.0'
+		]);
+
+		$provider->defaultEndPointVersion = \TheNetworg\OAuth2\Client\Provider\Azure::ENDPOINT_VERSION_2_0;
+
+		$baseGraphUri = $provider->getRootMicrosoftGraphUri(null);
+		$provider->scope = 'openid profile email offline_access ' . $baseGraphUri . '/User.Read ' . $baseGraphUri . '/Contacts.Read';
+
+		if (isset($_GET['code']) && isset($_SESSION['OAuth2.state']) && isset($_GET['state'])) {
+
+			if ($_GET['state'] == $_SESSION['OAuth2.state']) {
+				unset($_SESSION['OAuth2.state']);
+
+				/** @var AccessToken $token */
+				$token = $provider->getAccessToken('authorization_code', [
+					'scope' => $provider->scope,
+					'code' => $_GET['code'],
+				]);
+
+				$loop = 1;
+				$totalContactFound = 0;
+				$totalImportCount = 0;
+
+				for ($i = 0; $i < 10; $i++) {
+
+					if ($loop < 10) :
+						$optional = "top=1000";
+						$otherFilter = '&skip=' . $i * 1000;
+
+						$fetchContacts = $provider->get($provider->getRootMicrosoftGraphUri($token) . '/v1.0/me/contacts?' . $optional . $otherFilter, $token);
+						$totalContact = 0;
+
+						foreach ($fetchContacts as $contactRow) :
+							$totalContact++;
+							$totalContactFound++;
+
+							$importName = '';
+							$importMobileNumber = '';
+							$importBusinessNumber = null;
+							$importHomeNumber = null;
+
+							$numberExist = $userImportModel->where([
+								'mobile_number' => $contactRow['mobilePhone'],
+								'user_id' => $userId,
+							])->first();
+							if (!$numberExist) {
+								$totalImportCount++;
+								echo $totalImportCount . ": " . $contactRow['displayName'] . "Import" . "<br>";
+								$importName = $contactRow['displayName'];
+								$importMobileNumber = $contactRow['mobilePhone'];
+
+								if (count($contactRow['businessPhones']) > 0) {
+									$importBusinessNumber = $contactRow['businessPhones'][0];
+								}
+
+								if (count($contactRow['homePhones']) > 0) {
+									$importHomeNumber = $contactRow['homePhones'][0];
+								}
+
+								$importData = [
+									'name' => $importName,
+									'mobile_number' => $importMobileNumber,
+									'business_number' => $importBusinessNumber,
+									'home_number' => $importHomeNumber,
+									'user_id' => $userId,
+									'is_active' => 1
+								];
+
+								if ($userImportModel->save($importData)) {
+									$importName = '';
+									$importMobileNumber = '';
+									$importBusinessNumber = null;
+									$importHomeNumber = null;
+								}
+							} else {
+								echo "NumberExist";
+							}
+						endforeach;
+
+						if ($totalContact > 998) {
+							$loop++;
+						} else {
+							$loop = 100;
+						}
+					endif;
+				} // end for loop
+
+
+				echo "<script>alert('Total Contact Found: $totalContactFound | Total Contact Sync: $totalImportCount')</script>";
+				echo "<script>window.close()</script>";
+			} else {
+				echo 'Invalid state';
+
+				return null;
+			}
+		} else {
+
+			$authorizationUrl = $provider->getAuthorizationUrl(['scope' => $provider->scope]);
+			$_SESSION['OAuth2.state'] = $provider->getState();
+			header('Location: ' . $authorizationUrl);
+			exit;
+			//return $token->getToken();
+		}
 	}
 }

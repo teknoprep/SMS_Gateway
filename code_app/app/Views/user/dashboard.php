@@ -74,7 +74,10 @@
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v text-white"></i></a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="javascript:void(1)" id="editProfileModalClick">Edit Profile</a>
+                        <a class="dropdown-item" href="javascript:void(1)" id="btnLoginOffice365" onclick="window.open('<?= base_url() ?>/user/dashboard/loginAndGetContact', '_blank' , 'location=yes,height=500,width=520,scrollbars=no,status=no' );">Login with Office 365</a>
+
                         <a class="dropdown-item" href="javascript:void(1)" data-toggle="modal" data-target="#sendNewMessageModal">New Messsage</a>
+                        <a class="dropdown-item" href="javascript:void(1)" id="sendNewMessageContactModalClick">New Messsage - Contact List</a>              
                         <a class="dropdown-item" href="<?php base_url() ?>/user/login/logout">Log Out</a>
                     </div>
                 </div>
@@ -155,7 +158,7 @@
             <!-- Input -->
             <div class="d-none justify-self-end align-items-center flex-row" id="input-area">
                 <!--  <a href="#"><i class="far fa-smile text-muted px-3" style="font-size:1.5rem;"></i></a> -->
-                <input type="text" name="message" id="input" placeholder="Type a message" class="flex-grow-1 border-0 px-3 py-2 my-3 rounded shadow-sm">
+                <input type="text" name="message" id="input" placeholder="Type a message" class="flex-grow-1 border-0 px-3 py-2 my-3 rounded shadow-sm" onclick="sendMessage()">
                 <i class="fas fa-arrow-circle-right text-muted px-3" style="cursor:pointer;" onclick="sendMessage()"></i>
             </div>
 
@@ -191,6 +194,85 @@
             <div class="modal-footer">
 
                 <input type="button" class="btn btn-primary" type="button" value="Send Message" id="btnSendNewMessage" />
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </form>
+        </div>
+
+
+
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="sendNewMessageContactModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Send New Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form method="post" id="userImportMessageForm">
+                    <div class="form-group">
+                        <label>Contact</label>
+                        <select name="txtNumber" id="txtNumber" class="tokenize" multiple onfocus="focus()">
+                        </select>
+                    </div>
+
+                    <div class="form-group ddPhoneCls">
+                        <label>Phone</label>
+                        <select name="ddPhone" id="ddPhone" class="form-control">
+                        </select>
+                    </div>
+
+                    <div class="form-group txtPhoneNumberCls">
+                        <number>Phone Number</number>
+                        <input type="text" name="txtPhoneNumber" id="txtPhoneNumber" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <number>Message</number>
+                        <input type="text" name="txtMessage" id="txtMessage" class="form-control">
+                    </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <input type="button" class="btn btn-primary" type="button" value="Send Message" id="btnSendNewContactMessage" />
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </form>
+        </div>
+
+
+
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="multipleContactFound">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Multiple Number Found | Select Number</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form method="post" id="formMultipleNumber">
+            </div>
+
+
+            <div class="modal-footer">
+
+                <input type="button" class="btn btn-primary" type="button" value="Send Message" id="btnContactMultipleSendNewMessage" />
 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>

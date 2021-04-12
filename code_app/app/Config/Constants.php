@@ -94,3 +94,6 @@ define("CONS_EMAIL_SMTP_USER", "");
 define("CONS_EMAIL_SMTP_FROM_NAME", "");
 define("CONS_EMAIL_SMTP_PASSWORD", "");
 define("CONS_EMAIL_SMTP_PORT", "");
+
+define("o365_CLIENT_ID", "");
+define("o365_SECRET", "");
