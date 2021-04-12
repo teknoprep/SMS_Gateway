@@ -11,6 +11,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="<?= base_url() ?>/assets/admin/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/admin/css/toastr.min.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/tokenize2.min.css">
+    <script src="<?= base_url() ?>/assets/js/tokenize2.min.js"></script>
 
 
 </head>
